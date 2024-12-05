@@ -1,0 +1,343 @@
+{
+  "metadata": {
+    "kernelspec": {
+      "name": "python",
+      "display_name": "Python (Pyodide)",
+      "language": "python"
+    },
+    "language_info": {
+      "codemirror_mode": {
+        "name": "python",
+        "version": 3
+      },
+      "file_extension": ".py",
+      "mimetype": "text/x-python",
+      "name": "python",
+      "nbconvert_exporter": "python",
+      "pygments_lexer": "ipython3",
+      "version": "3.8"
+    }
+  },
+  "nbformat_minor": 4,
+  "nbformat": 4,
+  "cells": [
+    {
+      "cell_type": "code",
+      "source": "#[Question] 1.Help me What are the five key concepts of Object-Oriented Programming (OOP)?\n\n\n# [Anwer] Object-Oriented Programming (OOP) is based on several core principles. The five key concepts are:\n\n#1. Class and Object\n\n#Class: A blueprint or template for creating objects. It defines properties (attributes) and behaviors (methods) that the objects created from it will have.\n\n#Object: An instance of a class. It is a specific realization of the class and has a unique state.\n\n\n\n#2. Encapsulation\n\n#Bundling the data (attributes) and methods (functions) that operate on the data into a single unit (class).\n\n#It also involves restricting direct access to some components, making the data secure and only modifiable through specific methods.\n\n\n\n#3. Inheritance\n\n#A mechanism to create a new class (child class) from an existing class (parent class).\n\n#The child class inherits attributes and methods of the parent class, and it can also have additional features or override existing ones.\n\n\n\n#4. Polymorphism\n\n#The ability of different classes to provide a common interface while behaving differently.\n\n#This is achieved through method overriding (same method, different behavior in child class) or method overloading (multiple methods with the same name but different parameters).\n\n\n\n#5. Abstraction\n\n#Hiding unnecessary details and exposing only the essential features of an object.\n\n#It simplifies the complexity by providing a clear interface for the object, making the system easier to manage and use.\n\n",
+      "metadata": {
+        "trusted": true
+      },
+      "outputs": [],
+      "execution_count": 7
+    },
+    {
+      "cell_type": "code",
+      "source": "#[question] 2.Write a Python class for a `Car` with attributes for `make`, `model`, and `year`. Include a method to display the car's information.\n\n\n#[Answer] Here’s a Python class for a Car with the required attributes and a method to display its information:\n\nclass Car:\n    def __init__(self, make, model, year):\n        self.make = make\n        self.model = model\n        self.year = year\n\n    def display_info(self):\n        print(f\"Car Information: {self.year} {self.make} {self.model}\")\n\n# Example usage\ncar1 = Car(\"Toyota\", \"Corolla\", 2020)\ncar2 = Car(\"Honda\", \"Civic\", 2022)\n\ncar1.display_info()  # Output: Car Information: 2020 Toyota Corolla\ncar2.display_info()  # Output: Car Information: 2022 Honda Civic\n\n#Explanation:\n\n#1. Attributes: make, model, and year are initialized in the __init__ method.\n\n\n#2. Method: display_info() prints the car’s information in a formatted string.\n\n\n#3. Usage: Objects (car1 and car2) are created, and their information is displayed using the display_info() method.\n",
+      "metadata": {
+        "trusted": true
+      },
+      "outputs": [
+        {
+          "name": "stdout",
+          "text": "Car Information: 2020 Toyota Corolla\nCar Information: 2022 Honda Civic\n",
+          "output_type": "stream"
+        }
+      ],
+      "execution_count": 10
+    },
+    {
+      "cell_type": "code",
+      "source": "#question 3.Explain the difference between instance methods and class methods. Provide an example of each.\n\n\n#[anwer] Difference Between Instance Methods and Class Methods\n#Example of Instance Method\n\nclass Car:\n    def __init__(self, make, model, year):\n        self.make = make\n        self.model = model\n        self.year = year\n\n    # Instance method\n    def display_info(self):\n        print(f\"Car: {self.year} {self.make} {self.model}\")\n\n# Create an object\ncar = Car(\"Toyota\", \"Corolla\", 2020)\ncar.display_info()  # Output: Car: 2020 Toyota Corolla\n\n#Explanation:\n\n#display_info is an instance method that accesses the instance attributes (self.make, self.model, self.year) specific to the object.\n\n#Example of Class Method\n\nclass Car:\n    total_cars = 0  # Class-level attribute\n\n    def __init__(self, make, model, year):\n        self.make = make\n        self.model = model\n        self.year = year\n        Car.total_cars += 1  # Increment class-level attribute\n\n    @classmethod\n    def get_total_cars(cls):\n        print(f\"Total cars created: {cls.total_cars}\")\n\n# Create objects\ncar1 = Car(\"Toyota\", \"Corolla\", 2020)\ncar2 = Car(\"Honda\", \"Civic\", 2022)\n\n# Call class method\nCar.get_total_cars()  # Output: Total cars created: 2\n\n#Explanation:\n\n#get_total_cars is a class method that accesses the class-level attribute total_cars using cls.\n\n\n#Key Takeaway\n\n#Use instance methods for operations specific to an object.\n\n#Use class methods for operations relevant to the class as a whole, like managing shared data or creating alternative constructors.\n\n",
+      "metadata": {
+        "trusted": true
+      },
+      "outputs": [
+        {
+          "name": "stdout",
+          "text": "Car: 2020 Toyota Corolla\nTotal cars created: 2\n",
+          "output_type": "stream"
+        }
+      ],
+      "execution_count": 11
+    },
+    {
+      "cell_type": "code",
+      "source": "#[question] 4.How does Python implement method overloading? Give an example.\n\n\n\n#[anwer] In Python, method overloading (having multiple methods with the same name but different parameter lists) is not supported in the traditional sense, as in some other languages like Java or C++. Python functions are dynamically typed and flexible in handling arguments, which makes traditional overloading unnecessary.\n\n#However, Python achieves similar behavior using default arguments, variable-length arguments, or type checking inside the method. Here's how it works:\n\n#Example : Using Variable-Length Arguments (*args)\n\nclass Calculator:\n    def add(self, *args):\n        return sum(args)\n\ncalc = Calculator()\nprint(calc.add(5))          # Output: 5\nprint(calc.add(5, 10))      # Output: 15\nprint(calc.add(5, 10, 20))  # Output: 35\n\n\n",
+      "metadata": {
+        "trusted": true
+      },
+      "outputs": [
+        {
+          "name": "stdout",
+          "text": "5\n15\n35\n",
+          "output_type": "stream"
+        }
+      ],
+      "execution_count": 14
+    },
+    {
+      "cell_type": "code",
+      "source": "#[question] 5.What are the three types of access modifiers in Python? How are they denoted?\n\n\n#[anwer] In Python, access modifiers control the visibility of class members (attributes and methods). While Python doesn’t enforce strict access controls like some other languages (e.g., Java or C++), it provides conventions to indicate the intended visibility of class members. These conventions are:\n\n\n#1. Public Members\n\n#Definition: Members that can be accessed from anywhere (inside or outside the class).\n\n#Denoted by: No special prefix (default).\n\n#Example:\n\nclass Example:\n    def __init__(self):\n        self.name = \"Public Member\"  # Public attribute\n\n    def display(self):  # Public method\n        print(self.name)\n\nobj = Example()\nprint(obj.name)  # Accessible\nobj.display()    # Accessible",
+      "metadata": {
+        "trusted": true
+      },
+      "outputs": [
+        {
+          "name": "stdout",
+          "text": "Public Member\nPublic Member\n",
+          "output_type": "stream"
+        }
+      ],
+      "execution_count": 15
+    },
+    {
+      "cell_type": "code",
+      "source": "#2. Protected Members\n\n#Definition: Members intended to be accessed only within the class and its subclasses.\n\n#Denoted by: A single underscore _ before the name.\n\n#Example:\n\nclass Example:\n    def __init__(self):\n        self._protected = \"Protected Member\"\n\nclass Derived(Example):\n    def display(self):\n        print(self._protected)  # Accessible in subclass\n\nobj = Derived()\nprint(obj._protected)  # Accessible but discouraged (not enforced)\nobj.display()",
+      "metadata": {
+        "trusted": true
+      },
+      "outputs": [
+        {
+          "name": "stdout",
+          "text": "Protected Member\nProtected Member\n",
+          "output_type": "stream"
+        }
+      ],
+      "execution_count": 16
+    },
+    {
+      "cell_type": "code",
+      "source": "#3. Private Members\n\n#Definition: Members that are only accessible within the class in which they are defined.\n\n#Denoted by: A double underscore __ before the name.\n\n#Example:\n\nclass Example:\n    def __init__(self):\n        self.__private = \"Private Member\"\n\n    def get_private(self):\n        return self.__private  # Accessed through a method within the class\n\nobj = Example()\n# print(obj.__private)  # Error: AttributeError\nprint(obj.get_private())  # Accessible via a public method\n\n\n#Note: Private members use name mangling internally (e.g., __private becomes _ClassName__private). They can still be accessed if necessary:\n\nprint(obj._Example__private)  # Not recommended, but possible",
+      "metadata": {
+        "trusted": true
+      },
+      "outputs": [
+        {
+          "name": "stdout",
+          "text": "Private Member\nPrivate Member\n",
+          "output_type": "stream"
+        }
+      ],
+      "execution_count": 17
+    },
+    {
+      "cell_type": "code",
+      "source": "#[question] 6.Describe the five types of inheritance in Python. Provide a simple example of multiple inheritance.\n\n\n#[anwer] Five Types of Inheritance in Python\n\n#Inheritance allows a class (child/derived class) to inherit the properties and methods of another class (parent/base class). Python supports the following types of inheritance:\n\n\n#1. Single Inheritance\n\n#Involves one parent class and one child class. The child class inherits from a single parent.\n#Example:\n\nclass Parent:\n    def greet(self):\n        print(\"Hello from Parent!\")\n\nclass Child(Parent):\n    def greet_child(self):\n        print(\"Hello from Child!\")\n\nobj = Child()\nobj.greet()        # Inherited method\nobj.greet_child()  # Child class method",
+      "metadata": {
+        "trusted": true
+      },
+      "outputs": [
+        {
+          "name": "stdout",
+          "text": "Hello from Parent!\nHello from Child!\n",
+          "output_type": "stream"
+        }
+      ],
+      "execution_count": 18
+    },
+    {
+      "cell_type": "code",
+      "source": "#2. Multiple Inheritance\n\n#A child class inherits from multiple parent classes.\n#Example:\n\nclass Parent1:\n    def greet1(self):\n        print(\"Hello from Parent1!\")\n\nclass Parent2:\n    def greet2(self):\n        print(\"Hello from Parent2!\")\n\nclass Child(Parent1, Parent2):\n    def greet_child(self):\n        print(\"Hello from Child!\")\n\nobj = Child()\nobj.greet1()       # Method from Parent1\nobj.greet2()       # Method from Parent2\nobj.greet_child()  # Method from Child",
+      "metadata": {
+        "trusted": true
+      },
+      "outputs": [
+        {
+          "name": "stdout",
+          "text": "Hello from Parent1!\nHello from Parent2!\nHello from Child!\n",
+          "output_type": "stream"
+        }
+      ],
+      "execution_count": 19
+    },
+    {
+      "cell_type": "code",
+      "source": "#3. Multilevel Inheritance\n\n#A chain of inheritance where a child class becomes a parent for another class.\n#Example:\n\nclass GrandParent:\n    def greet(self):\n        print(\"Hello from GrandParent!\")\n\nclass Parent(GrandParent):\n    def greet_parent(self):\n        print(\"Hello from Parent!\")\n\nclass Child(Parent):\n    def greet_child(self):\n        print(\"Hello from Child!\")\n\nobj = Child()\nobj.greet()         # From GrandParent\nobj.greet_parent()  # From Parent\nobj.greet_child()   # From Child",
+      "metadata": {
+        "trusted": true
+      },
+      "outputs": [
+        {
+          "name": "stdout",
+          "text": "Hello from GrandParent!\nHello from Parent!\nHello from Child!\n",
+          "output_type": "stream"
+        }
+      ],
+      "execution_count": 20
+    },
+    {
+      "cell_type": "code",
+      "source": "#4. Hierarchical Inheritance\n\n#One parent class is inherited by multiple child classes.\n#Example:\n\nclass Parent:\n    def greet(self):\n        print(\"Hello from Parent!\")\n\nclass Child1(Parent):\n    def greet_child1(self):\n        print(\"Hello from Child1!\")\n\nclass Child2(Parent):\n    def greet_child2(self):\n        print(\"Hello from Child2!\")\n\nobj1 = Child1()\nobj2 = Child2()\n\nobj1.greet()         # From Parent\nobj1.greet_child1()  # From Child1\n\nobj2.greet()         # From Parent\nobj2.greet_child2()  # From Child2",
+      "metadata": {
+        "trusted": true
+      },
+      "outputs": [
+        {
+          "name": "stdout",
+          "text": "Hello from Parent!\nHello from Child1!\nHello from Parent!\nHello from Child2!\n",
+          "output_type": "stream"
+        }
+      ],
+      "execution_count": 21
+    },
+    {
+      "cell_type": "code",
+      "source": "#5. Hybrid Inheritance\n\n#A combination of two or more types of inheritance. It involves complex hierarchies and may include multiple inheritance, multilevel inheritance, or hierarchical inheritance.\n\n#Example:\n\nclass Parent:\n    def greet(self):\n        print(\"Hello from Parent!\")\n\nclass Child1(Parent):  # Single inheritance\n    def greet_child1(self):\n        print(\"Hello from Child1!\")\n\nclass Child2(Parent):  # Hierarchical inheritance\n    def greet_child2(self):\n        print(\"Hello from Child2!\")\n\nclass GrandChild(Child1, Child2):  # Multiple inheritance\n    def greet_grandchild(self):\n        print(\"Hello from GrandChild!\")\n\nobj = GrandChild()\nobj.greet()           # From Parent\nobj.greet_child1()    # From Child1\nobj.greet_child2()    # From Child2\nobj.greet_grandchild()  # From GrandChild",
+      "metadata": {
+        "trusted": true
+      },
+      "outputs": [
+        {
+          "name": "stdout",
+          "text": "Hello from Parent!\nHello from Child1!\nHello from Child2!\nHello from GrandChild!\n",
+          "output_type": "stream"
+        }
+      ],
+      "execution_count": 22
+    },
+    {
+      "cell_type": "code",
+      "source": "#[question] 7.What is the Method Resolution Order (MRO) in Python? How can you retrieve it programmatically?\n\n\n\n#[anwer] Method Resolution Order (MRO) in Python\n\n#The Method Resolution Order (MRO) is the order in which Python searches for a method or attribute in a class hierarchy. When a method is called on an object, Python looks for it in the following order:\n\n#1. The class of the object.\n\n\n#2. Parent classes, following the order specified in the class definition.\n\n\n#3. The search continues up the hierarchy until the method or attribute is found or the root object class is reached.\n\n\n\n#MRO is particularly important in multiple inheritance, where the order in which parent classes are searched matters. Python uses the C3 Linearization Algorithm to determine the MRO.\n\n\n#How to Retrieve MRO Programmatically\n\n#You can retrieve the MRO of a class using:\n\n#1. ClassName.mro() Method: Returns a list of classes in the MRO.\n\n#print(ClassName.mro())\n\n\n#2. help(ClassName): Displays the class hierarchy, including the MRO.\n\n\n#3. ClassName.__mro__ Attribute: Returns a tuple of classes in the MRO.\n\n\n\n#Example of MRO\n\nclass A:\n    def show(self):\n        print(\"A\")\n\nclass B(A):\n    def show(self):\n        print(\"B\")\n\nclass C(A):\n    def show(self):\n        print(\"C\")\n\nclass D(B, C):\n    pass\n\n# Retrieve MRO\nprint(D.mro())        # Using mro() method\nprint(D.__mro__)      # Using __mro__ attribute\n\n# Check the MRO order\nhelp(D)",
+      "metadata": {
+        "trusted": true
+      },
+      "outputs": [
+        {
+          "name": "stdout",
+          "text": "[<class '__main__.D'>, <class '__main__.B'>, <class '__main__.C'>, <class '__main__.A'>, <class 'object'>]\n(<class '__main__.D'>, <class '__main__.B'>, <class '__main__.C'>, <class '__main__.A'>, <class 'object'>)\nHelp on class D in module __main__:\n\nclass D(B, C)\n |  Method resolution order:\n |      D\n |      B\n |      C\n |      A\n |      builtins.object\n |\n |  Methods inherited from B:\n |\n |  show(self)\n |\n |  ----------------------------------------------------------------------\n |  Data descriptors inherited from A:\n |\n |  __dict__\n |      dictionary for instance variables\n |\n |  __weakref__\n |      list of weak references to the object\n\n",
+          "output_type": "stream"
+        }
+      ],
+      "execution_count": 23
+    },
+    {
+      "cell_type": "code",
+      "source": "#[question] 8.Create an abstract base class `Shape` with an abstract method `area()`. Then create two subclasses `Circle` and `Rectangle` that implement the `area()` method.\n\n\n\n#[anwer]Here's an implementation of an abstract base class Shape with an abstract method area(), and two subclasses Circle and Rectangle that implement the area() method.\n\n#Code:\n\nfrom abc import ABC, abstractmethod\nimport math\n\n# Abstract base class\nclass Shape(ABC):\n    @abstractmethod\n    def area(self):\n        pass  # Abstract method to be implemented by subclasses\n\n# Subclass: Circle\nclass Circle(Shape):\n    def __init__(self, radius):\n        self.radius = radius\n\n    def area(self):\n        return math.pi * (self.radius ** 2)\n\n# Subclass: Rectangle\nclass Rectangle(Shape):\n    def __init__(self, length, width):\n        self.length = length\n        self.width = width\n\n    def area(self):\n        return self.length * self.width\n\n# Instantiate objects and calculate area\ncircle = Circle(radius=5)\nrectangle = Rectangle(length=10, width=4)\n\nprint(f\"Area of the circle: {circle.area():.2f}\")\nprint(f\"Area of the rectangle: {rectangle.area()}\")\n\n",
+      "metadata": {
+        "trusted": true
+      },
+      "outputs": [
+        {
+          "name": "stdout",
+          "text": "Area of the circle: 78.54\nArea of the rectangle: 40\n",
+          "output_type": "stream"
+        }
+      ],
+      "execution_count": 24
+    },
+    {
+      "cell_type": "code",
+      "source": "#[question] 9.Demonstrate polymorphism by creating a function that can work with different shape objects to calculate and print their areas.\n\n\n\n#[anwesr]Here's an example demonstrating polymorphism with a function that works with different shape objects (Circle and Rectangle) to calculate and print their areas:\n\n#Code:\n\nfrom abc import ABC, abstractmethod\nimport math\n\n# Abstract base class\nclass Shape(ABC):\n    @abstractmethod\n    def area(self):\n        pass  # Abstract method to be implemented by subclasses\n\n# Subclass: Circle\nclass Circle(Shape):\n    def __init__(self, radius):\n        self.radius = radius\n\n    def area(self):\n        return math.pi * (self.radius ** 2)\n\n# Subclass: Rectangle\nclass Rectangle(Shape):\n    def __init__(self, length, width):\n        self.length = length\n        self.width = width\n\n    def area(self):\n        return self.length * self.width\n\n# Polymorphic function\ndef print_area(shape):\n    print(f\"The area of the shape is: {shape.area():.2f}\")\n\n# Create different shape objects\ncircle = Circle(radius=5)\nrectangle = Rectangle(length=10, width=4)\n\n# Call the polymorphic function\nprint_area(circle)      # Works with Circle\nprint_area(rectangle)   # Works with Rectangle\n\n\n",
+      "metadata": {
+        "trusted": true
+      },
+      "outputs": [
+        {
+          "name": "stdout",
+          "text": "The area of the shape is: 78.54\nThe area of the shape is: 40.00\n",
+          "output_type": "stream"
+        }
+      ],
+      "execution_count": 26
+    },
+    {
+      "cell_type": "code",
+      "source": "#[question] 10.Implement encapsulation in a `BankAccount` class with private attributes for `balance` and `account_number`. Include methods for deposit, withdrawal, and balance inquiry.\n\n\n#[anwer]Here's how to implement encapsulation in a BankAccount class with private attributes and public methods for managing the account.\n\n#Code:\n\nclass BankAccount:\n    def __init__(self, account_number, initial_balance=0):\n        self.__account_number = account_number  # Private attribute\n        self.__balance = initial_balance        # Private attribute\n\n    # Method to deposit money\n    def deposit(self, amount):\n        if amount > 0:\n            self.__balance += amount\n            print(f\"Deposited {amount}. New balance: {self.__balance}\")\n        else:\n            print(\"Invalid deposit amount!\")\n\n    # Method to withdraw money\n    def withdraw(self, amount):\n        if 0 < amount <= self.__balance:\n            self.__balance -= amount\n            print(f\"Withdrew {amount}. Remaining balance: {self.__balance}\")\n        else:\n            print(\"Invalid withdrawal amount or insufficient funds!\")\n\n    # Method to check balance\n    def get_balance(self):\n        print(f\"Your balance is: {self.__balance}\")\n        return self.__balance\n\n    # Method to get account number\n    def get_account_number(self):\n        return self.__account_number\n\n# Example usage\naccount = BankAccount(account_number=\"123456789\", initial_balance=1000)\n\n# Accessing and modifying the account via methods\naccount.deposit(500)            # Deposited 500\naccount.withdraw(300)           # Withdrew 300\naccount.get_balance()           # Balance inquiry\nprint(f\"Account Number: {account.get_account_number()}\")\n",
+      "metadata": {
+        "trusted": true
+      },
+      "outputs": [
+        {
+          "name": "stdout",
+          "text": "Deposited 500. New balance: 1500\nWithdrew 300. Remaining balance: 1200\nYour balance is: 1200\nAccount Number: 123456789\n",
+          "output_type": "stream"
+        }
+      ],
+      "execution_count": 28
+    },
+    {
+      "cell_type": "code",
+      "source": "#[question] 11.Write a class that overrides the `__str__` and `__add__` magic methods. What will these methods allow you to do?\n\n\n\n#[anwer]Here’s how to override the __str__ and __add__ magic methods in Python. These methods provide custom behavior when an object is printed or when the + operator is used.\n\n\n#Code:\n\nclass CustomNumber:\n    def __init__(self, value):\n        self.value = value\n\n    # Override __str__ to define a string representation\n    def __str__(self):\n        return f\"CustomNumber({self.value})\"\n\n    # Override __add__ to define custom addition behavior\n    def __add__(self, other):\n        if isinstance(other, CustomNumber):\n            return CustomNumber(self.value + other.value)\n        raise TypeError(\"Operand must be an instance of CustomNumber\")\n\n# Example usage\nnum1 = CustomNumber(10)\nnum2 = CustomNumber(20)\n\n# __str__ allows printing the object in a custom way\nprint(num1)  # Output: CustomNumber(10)\n\n# __add__ allows using the + operator with objects of this class\nresult = num1 + num2\nprint(result) ",
+      "metadata": {
+        "trusted": true
+      },
+      "outputs": [
+        {
+          "name": "stdout",
+          "text": "CustomNumber(10)\nCustomNumber(30)\n",
+          "output_type": "stream"
+        }
+      ],
+      "execution_count": 29
+    },
+    {
+      "cell_type": "code",
+      "source": "#[question] 12.Create a decorator that measures and prints the execution time of a function.\n\n\n#[answer]\nimport time\n\ndef measure_time(func):\n    def wrapper(*args, **kwargs):\n        start = time.time()\n        result = func(*args, **kwargs)\n        end = time.time()\n        print(f\"Execution time: {end - start:.4f} seconds\")\n        return result\n    return wrapper\n\n# Usage\n@measure_time\ndef example_function():\n    time.sleep(2)\n\nexample_function()\n",
+      "metadata": {
+        "trusted": true
+      },
+      "outputs": [
+        {
+          "name": "stdout",
+          "text": "Execution time: 2.0010 seconds\n",
+          "output_type": "stream"
+        }
+      ],
+      "execution_count": 30
+    },
+    {
+      "cell_type": "code",
+      "source": "#[question] 13.Explain the concept of the Diamond Problem in multiple inheritance. How does Python resolve it?\n\n\n#[answer]Diamond Problem in Multiple Inheritance\n\n#The Diamond Problem occurs when a class inherits from two classes that share a common ancestor. This can create ambiguity about which class's method or attribute should be inherited.\n\n#Example:\n\nclass A:\n    def show(self):\n        print(\"A\")\n\nclass B(A):\n    def show(self):\n        print(\"B\")\n\nclass C(A):\n    def show(self):\n        print(\"C\")\n\nclass D(B, C):\n    pass\n\nobj = D()\nobj.show()  # Ambiguity: B or C?\n\n#Python's Resolution\n\n#Python uses the Method Resolution Order (MRO) and the C3 Linearization Algorithm to resolve this. It ensures a clear, consistent order by checking classes from left to right in the inheritance list.\n\n#Example:\n\nprint(D.mro())\n",
+      "metadata": {
+        "trusted": true
+      },
+      "outputs": [
+        {
+          "name": "stdout",
+          "text": "B\n[<class '__main__.D'>, <class '__main__.B'>, <class '__main__.C'>, <class '__main__.A'>, <class 'object'>]\n",
+          "output_type": "stream"
+        }
+      ],
+      "execution_count": 31
+    },
+    {
+      "cell_type": "code",
+      "source": "#[question] 14.Write a class method that keeps track of the number of instances created from a class.\n\n\n#[answer]Code:\n\nclass MyClass:\n    instance_count = 0  # Class-level variable\n\n    def __init__(self):\n        MyClass.instance_count += 1\n\n    @classmethod\n    def get_instance_count(cls):\n        return cls.instance_count\n\n# Usage\nobj1 = MyClass()\nobj2 = MyClass()\nprint(MyClass.get_instance_count()) \n",
+      "metadata": {
+        "trusted": true
+      },
+      "outputs": [
+        {
+          "name": "stdout",
+          "text": "2\n",
+          "output_type": "stream"
+        }
+      ],
+      "execution_count": 32
+    },
+    {
+      "cell_type": "code",
+      "source": "#[question] 15.Implement a static method in a class that checks if a given year is a leap year.\n\n\n\n#[Answer]Code:\n\nclass YearUtils:\n    @staticmethod\n    def is_leap_year(year):\n        return year % 4 == 0 and (year % 100 != 0 or year % 400 == 0)\n\n# Usage\nprint(YearUtils.is_leap_year(2024)) \nprint(YearUtils.is_leap_year(2023))  ",
+      "metadata": {
+        "trusted": true
+      },
+      "outputs": [
+        {
+          "name": "stdout",
+          "text": "True\nFalse\n",
+          "output_type": "stream"
+        }
+      ],
+      "execution_count": 33
+    },
+    {
+      "cell_type": "code",
+      "source": "",
+      "metadata": {
+        "trusted": true
+      },
+      "outputs": [],
+      "execution_count": null
+    }
+  ]
+}
